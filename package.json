@@ -1,0 +1,17 @@
+{
+  "name": "biotech",
+  "version": "1.0.0",
+  "description": "Jeef's Biotech Sandbox",
+  "scripts": {
+    "start": "npx serve www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/12Jeef/biotech.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/12Jeef/biotech/issues"
+  },
+  "homepage": "https://github.com/12Jeef/biotech#readme"
+}

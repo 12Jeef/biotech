@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cell2D</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="display">
+      <canvas id="main" width="1000" height="600"></canvas>
+      <canvas id="meter" width="1000" height="100"></canvas>
+    </div>
+    <div id="toolbar">
+      <button id="tool-draw">
+        <ion-icon name="brush"></ion-icon>
+        <div>Draw</div>
+      </button>
+      <button id="tool-erase">
+        <ion-icon src="./erase.svg"></ion-icon>
+        <div>Erase</div>
+      </button>
+      <button id="tool-move">
+        <ion-icon name="move"></ion-icon>
+        <div>Move</div>
+      </button>
+      <button id="tool-meter">
+        <ion-icon name="search"></ion-icon>
+        <div>Meter</div>
+      </button>
+      <button id="tool-pp">
+        <ion-icon></ion-icon>
+        <div>Play - Pause</div>
+      </button>
+    </div>
+    <div id="settings">
+      <div id="simulation">
+        <h1>Simulation</h1>
+        <div id="sims">
+          <button id="sim-select"></button>
+          <div id="sim-dropdown">
+            <button id="sim-diffusion">Diffusion</button>
+            <button id="sim-pattern">Pattern</button>
+            <button id="sim-wound-heal">Wound Heal</button>
+            <button id="sim-zebrafish">Zebrafish</button>
+            <button id="sim-heart">Heart</button>
+          </div>
+        </div>
+
+        <div id="sim-params">
+          <button id="sim-params-toggle">Parameters</button>
+          <div>
+            <span class="header sim-param diffusion">
+              <span>D<sub>r</sub></span>
+              <input type="number" min="0" id="diffusion-D0" />
+            </span>
+            <span class="header sim-param diffusion">
+              <span>D<sub>g</sub></span>
+              <input type="number" min="0" id="diffusion-D1" />
+            </span>
+            <span class="header sim-param diffusion">
+              <span>D<sub>b</sub></span>
+              <input type="number" min="0" id="diffusion-D2" />
+            </span>
+
+            <span class="header sim-param pattern lined">
+              <span>Mode</span>
+              <input type="number" min="0" step="1" id="pattern-mode" />
+            </span>
+            <span class="header sim-param pattern">
+              <span>ρ<sub>A</sub></span>
+              <input type="number" min="0" id="pattern-rhoA" />
+            </span>
+            <span class="header sim-param pattern lined">
+              <span>ρ<sub>H</sub></span>
+              <input type="number" min="0" id="pattern-rhoH" />
+            </span>
+            <span class="header sim-param pattern">
+              <span>c<sub>A</sub></span>
+              <input type="number" min="0" id="pattern-cA" />
+            </span>
+            <span class="header sim-param pattern lined">
+              <span>c<sub>H</sub></span>
+              <input type="number" min="0" id="pattern-cH" />
+            </span>
+            <span class="header sim-param pattern lined">
+              <span>s</span>
+              <input type="number" min="0" id="pattern-s" />
+            </span>
+            <span class="header sim-param pattern">
+              <span>μ</span>
+              <input type="number" min="0" id="pattern-mu" />
+            </span>
+            <span class="header sim-param pattern lined">
+              <span>ν</span>
+              <input type="number" min="0" id="pattern-nu" />
+            </span>
+            <span class="header sim-param pattern">
+              <span>D<sub>A</sub></span>
+              <input type="number" min="0" id="pattern-D0" />
+            </span>
+            <span class="header sim-param pattern">
+              <span>D<sub>H</sub></span>
+              <input type="number" min="0" id="pattern-D1" />
+            </span>
+
+            <span class="header sim-param zebrafish lined">
+              <span>Mode</span>
+              <input type="number" min="0" step="1" id="zebrafish-mode" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>1</sub></span>
+              <input type="number" id="zebrafish-c1" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>2</sub></span>
+              <input type="number" id="zebrafish-c2" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>3</sub></span>
+              <input type="number" id="zebrafish-c3" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>4</sub></span>
+              <input type="number" id="zebrafish-c4" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>5</sub></span>
+              <input type="number" id="zebrafish-c5" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>6</sub></span>
+              <input type="number" id="zebrafish-c6" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>7</sub></span>
+              <input type="number" id="zebrafish-c7" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>8</sub></span>
+              <input type="number" id="zebrafish-c8" />
+            </span>
+            <span class="header sim-param zebrafish lined">
+              <span>c<sub>9</sub></span>
+              <input type="number" id="zebrafish-c9" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>u</sub></span>
+              <input type="number" id="zebrafish-cu" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>c<sub>v</sub></span>
+              <input type="number" id="zebrafish-cv" />
+            </span>
+            <span class="header sim-param zebrafish lined">
+              <span>c<sub>w</sub></span>
+              <input type="number" id="zebrafish-cw" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>U</span>
+              <input type="number" id="zebrafish-U" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>V</span>
+              <input type="number" id="zebrafish-V" />
+            </span>
+            <span class="header sim-param zebrafish lined">
+              <span>W</span>
+              <input type="number" id="zebrafish-W" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>D<sub>u</sub></span>
+              <input type="number" min="0" id="zebrafish-D0" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>D<sub>v</sub></span>
+              <input type="number" min="0" id="zebrafish-D1" />
+            </span>
+            <span class="header sim-param zebrafish">
+              <span>D<sub>w</sub></span>
+              <input type="number" min="0" id="zebrafish-D2" />
+            </span>
+
+            <span class="header sim-param heart lined">
+              <span>Mode</span>
+              <input type="number" min="0" step="1" id="heart-mode" />
+            </span>
+            <span class="header sim-param heart">
+              <span>r</span>
+              <input type="number" min="0" id="heart-r" />
+            </span>
+            <span class="header sim-param heart">
+              <span>a</span>
+              <input type="number" min="0" id="heart-a" />
+            </span>
+            <span class="header sim-param heart">
+              <span>ε</span>
+              <input type="number" min="0" id="heart-epsilon" />
+            </span>
+            <span class="header sim-param heart lined">
+              <span>ß</span>
+              <input type="number" min="0" id="heart-beta" />
+            </span>
+            <span class="header sim-param heart">
+              <span>D<sub>V</sub></span>
+              <input type="number" min="0" id="heart-D0" />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div id="channels">
+        <h1>Pen channels</h1>
+        <div id="pen-channels"></div>
+        <h1>Visible channels</h1>
+        <div id="visible-channels"></div>
+        <h1>RGB Channel Mappings</h1>
+        <div id="channel-map">
+          <div id="channel-map-0">
+            <div>
+              <span id="channel-map-0-name"></span>
+              <button id="channel-map-0-remove">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </div>
+            <div>Red</div>
+          </div>
+          <div id="channel-map-1">
+            <div>
+              <span id="channel-map-1-name"></span>
+              <button id="channel-map-1-remove">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </div>
+            <div>Green</div>
+          </div>
+          <div id="channel-map-2">
+            <div>
+              <span id="channel-map-2-name"></span>
+              <button id="channel-map-2-remove">
+                <ion-icon name="close"></ion-icon>
+              </button>
+            </div>
+            <div>Blue</div>
+          </div>
+        </div>
+      </div>
+      <div id="subsettings">
+        <span class="header">
+          <span>Space Width</span>
+          <input type="number" min="1" id="space-width" />
+        </span>
+        <span class="header">
+          <span>Space Height</span>
+          <input type="number" min="1" id="space-height" />
+        </span>
+        <span class="header">
+          <span>Pen Size</span>
+          <input type="number" min="0" id="pensize-input" />
+        </span>
+        <input type="range" min="0" max="50" id="pensize-range" />
+        <span class="header">
+          <span>Pen Weight</span>
+          <input type="number" id="penweight-input" />
+        </span>
+        <input type="range" min="-100" max="100" id="penweight-range" />
+      </div>
+    </div>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="./script.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,433 @@
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+  overscroll-behavior: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  outline: none;
+  border: none;
+
+  cursor: pointer;
+}
+input {
+  padding: 0.25em;
+
+  outline: none;
+  border: none;
+
+  background: #444;
+}
+canvas {
+  margin: 0;
+  padding: 0;
+
+  display: block;
+
+  outline: none;
+  border: none;
+
+  background: #fff2;
+}
+
+body {
+  padding: 2em;
+  /* overflow: hidden; */
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  gap: 1em;
+
+  background: #222;
+  color: #fff;
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+#display {
+  height: 100%;
+  max-height: 100%;
+  width: 75%;
+  max-width: 75%;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 1em;
+}
+#display > canvas {
+  border: 0.1rem solid #fff4;
+}
+
+#toolbar {
+  width: 4em;
+  max-width: 4em;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+  gap: 1em;
+}
+#toolbar > button {
+  position: relative;
+
+  aspect-ratio: 1 / 1;
+  padding: 0.5em;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  background: #444;
+
+  font-size: 1.5em;
+
+  outline: 0.1rem solid #fff4;
+}
+#toolbar > button.this {
+  outline: 0.1rem solid #fff8;
+}
+#toolbar > button > div {
+  position: absolute;
+  top: 50%;
+  left: calc(100% - 0.25em);
+  transform: translate(-1em, -50%);
+
+  min-width: max-content;
+  padding: 0.25em 0.5em;
+
+  background: #666;
+  opacity: 0;
+  visibility: hidden;
+  filter: drop-shadow(0 0 0.5rem #0008);
+
+  font-size: 0.75em;
+
+  transition: transform 0.25s, opacity 0.25s, visibility 0.25s;
+}
+#toolbar > button:hover > div {
+  transform: translate(0, -50%);
+
+  opacity: 1;
+  visibility: inherit;
+}
+
+#settings {
+  width: calc(25% - 2em - 4em);
+  max-width: calc(25% - 2em - 4em);
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+
+  align-self: stretch;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: center;
+  gap: 2em;
+}
+#settings > #simulation,
+#settings > #channels {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: center;
+  gap: 0.5em;
+}
+#settings > #simulation > h1,
+#settings > #channels > h1 {
+  font-size: 1em;
+  text-align: center;
+}
+#settings > #simulation > #sims {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+}
+#settings > #simulation > #sims > #sim-select::before {
+  content: "▼";
+
+  position: absolute;
+  top: 50%;
+  right: 0.75em;
+  transform-origin: 50% 50%;
+  transform: translateY(-50%);
+}
+#settings > #simulation > #sims.open > #sim-select::before {
+  transform: translateY(-50%) scale(-1);
+}
+#settings > #simulation > #sims > #sim-select,
+#settings > #simulation > #sims > #sim-dropdown > button {
+  padding: 0.5em 0.75em;
+
+  background: #444;
+
+  text-align: left;
+
+  transition: filter 0.25s;
+}
+#settings > #simulation > #sims > #sim-select:hover,
+#settings > #simulation > #sims > #sim-dropdown > button:hover {
+  filter: brightness(1.25);
+}
+#settings > #simulation > #sims > #sim-dropdown {
+  z-index: 1;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  transform-origin: 50% 0;
+  transform: scale(0.75);
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+
+  opacity: 0;
+  visibility: hidden;
+  filter: drop-shadow(0 0 0.5rem #0008);
+
+  transition: transform 0.25s, opacity 0.25s, visibility 0.25s;
+}
+#settings > #simulation > #sims.open > #sim-dropdown {
+  transform: scale(1);
+
+  opacity: 1;
+  visibility: inherit;
+}
+#settings > #simulation > #sim-params,
+#settings > #simulation > #sim-params > div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: center;
+  gap: 0.25em;
+}
+#settings > #simulation > #sim-params > button {
+  position: relative;
+
+  padding-left: 1.75em;
+
+  background: transparent;
+
+  text-align: left;
+}
+#settings > #simulation > #sim-params > button::before {
+  content: "▶";
+
+  position: absolute;
+  left: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#settings > #simulation > #sim-params.open > button::before {
+  transform: translateY(-50%) rotate(90deg);
+}
+#settings > #simulation > #sim-params > div {
+  padding-left: 1em;
+}
+#settings > #simulation > #sim-params:not(.open) > div {
+  display: none;
+}
+#settings > #channels > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: stretch;
+  align-items: stretch;
+  align-content: stretch;
+  gap: 0.25em;
+}
+#settings > #channels > div > button {
+  flex-basis: 100%;
+
+  padding: 0.5em;
+
+  opacity: 1;
+
+  font-weight: 700;
+  text-transform: uppercase;
+
+  transition: filter 0.25s, opacity 0.25s;
+}
+#settings > #channels > div > button:not(:disabled):hover {
+  filter: brightness(1.25);
+}
+#settings > #channels > div > button:disabled {
+  opacity: 0.5;
+
+  cursor: auto;
+}
+#settings > #channels > div > button:not(.active) {
+  background: transparent !important;
+}
+#settings > #channels > div > button {
+  background: #666;
+  border: 0.1rem solid #666;
+}
+#settings > #channels > div > button.r {
+  background: #c04;
+  border: 0.1rem solid #c04;
+}
+#settings > #channels > div > button.g {
+  background: #0a4;
+  border: 0.1rem solid #0a4;
+}
+#settings > #channels > div > button.b {
+  background: #06c;
+  border: 0.1rem solid #06c;
+}
+#settings > #channels > div > div {
+  flex-basis: 100%;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+}
+#settings > #channels > div > div:nth-of-type(1) {
+  border: 0.1rem solid #c04;
+}
+#settings > #channels > div > div:nth-of-type(2) {
+  border: 0.1rem solid #0a4;
+}
+#settings > #channels > div > div:nth-of-type(3) {
+  border: 0.1rem solid #06c;
+}
+#settings > #channels > div > div > div {
+  padding: 0.5em;
+}
+#settings > #channels > div > div > div:first-child {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  gap: 0.25em;
+}
+#settings > #channels > div > div.dropping > div:first-child {
+  background: #444;
+}
+#settings > #channels > div > div > div:first-child > span {
+  flex-basis: 100%;
+
+  font-size: 0.75em;
+}
+#settings > #channels > div > div > div:first-child > button {
+  background-color: transparent;
+}
+#settings > #channels > div > div > div:last-child {
+  font-size: 0.75em;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+#settings > #channels > div > div:nth-child(1) > div:last-child {
+  background: #c04;
+}
+#settings > #channels > div > div:nth-child(2) > div:last-child {
+  background: #0a4;
+}
+#settings > #channels > div > div:nth-child(3) > div:last-child {
+  background: #06c;
+}
+#settings > #subsettings {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+  gap: 0.25em;
+}
+#settings span.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  gap: 0.5em;
+}
+#settings span.header.lined {
+  padding-bottom: 0.25em;
+  border-bottom: 0.1rem solid #fff2;
+}
+#settings span.header > span {
+  flex-basis: 100%;
+
+  font-size: 0.75em;
+  font-weight: 700;
+}
+#settings span.header > input {
+  width: 5em;
+}
+#settings input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+
+  min-width: 0em;
+  width: 100%;
+  height: 1em;
+
+  background: #444;
+}
+#settings input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+
+  height: 1em;
+  width: 1em;
+
+  background: #08f;
+}
+#settings input[type="range"]::-webkit-slider-thumb:hover {
+  background: #4af;
+}
