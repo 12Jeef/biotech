@@ -1,6 +1,6 @@
-# Biotech Sandbox
+<img src="./etc/banner.svg" width="100%">
 
-Jeef's biotech sandboxes which include random experiments quickly created in JavaScript
+Biotech sandboxes which include random experiments quickly created in JavaScript
 
 ## Usage
 
