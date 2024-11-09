@@ -40,22 +40,6 @@
                         gap: 0.5em;
                     }
                 }
-                @keyframes crown-enter {
-                    0% {
-                        transform: scale(0.5);
-
-                        margin-botom: -30px;
-
-                        opacity: 0;
-                    }
-                    100% {
-                        transform: scale(1);
-
-                        margin-botom: 0;
-
-                        opacity: 1;
-                    }
-                }
                 @keyframes text-enter {
                     0% {
                         transform: translateY(-0.5em) scale(0.5);
@@ -69,22 +53,6 @@
                     }
                 }
 
-                .main::before {
-                    z-index: -1;
-
-                    
-
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-
-                    width: 400px;
-                    height: 200px;
-
-                    background: radial-gradient(closest-side ellipse at center, #1cff7711 0%, transparent 100%);
-                }
-
                 .main .content {
                     display: flex;
                     flex-direction: column;
@@ -94,16 +62,6 @@
                     align-content: center;
 
                     animation: content-enter 3s cubic-bezier(0.000, 1.015, 0.390, 0.890) 2s both;
-                }
-
-                .main .content .crown {
-                    width: 30px;
-                    height: 20px;
-
-                    background-color: var(--color);
-                    clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0, 75% 33%, 50% 0, 25% 33%);
-
-                    animation: crown-enter 3s cubic-bezier(0.000, 1.015, 0.390, 0.890) 2s both;
                 }
 
                 .main .content .text {
@@ -121,7 +79,7 @@
 
                     display: inline-block;
 
-                    animation: text-enter 3s cubic-bezier(0.000, 1.015, 0.390, 0.890) calc(0.1s * var(--i)) both;
+                    animation: text-enter 3s cubic-bezier(0.000, 1.015, 0.390, 0.890) calc(0.05s * var(--i)) both;
                 }
                 .main .content .text span:empty {
                     width: 0.5em;
